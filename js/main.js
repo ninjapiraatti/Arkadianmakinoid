@@ -301,7 +301,7 @@ function collideAction(ball, p) {
 	ball.vy = -ball.vy;
 	
 	if(boxHit == 1){
-		gameOver();
+		particlePos.y = ball.y + ball.r;
 		boxRemoved = true;
 	}
 	else if(paddleHit == 1) {
