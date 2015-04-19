@@ -23,13 +23,13 @@ window.cancelRequestAnimFrame = ( function() {
 // Initialize canvas and required variables
 var canvas = document.getElementById("canvas"),
 	ctx = canvas.getContext("2d"), // Create canvas context
-	W = window.innerWidth / 2, // Window's width
-	H = window.innerHeight / 2, // Window's height
+	W = 1000, // Window's width
+	H = window.innerHeight / 1.25, // Window's height
 	ball, // Ball object
 	paddle, // Paddle object
 	boxes = [], // Array for boxes
 	mouse = {}, // Mouse object to store it's current position
-	points = 0, // Varialbe to store points
+	points = 0, // Variable to store points
 	fps = 60; // Max FPS (frames per second)
 
 // Add mousemove and mousedown events to the canvas
@@ -81,7 +81,7 @@ function Paddle() {
 // Make a collidable box
 function Box(x, y) {
 
-	this.width = 300;
+	this.width = 30;
 	this.height = 15;
 
 	this.x = x;
@@ -177,7 +177,7 @@ function loop() {
 
 // Function for updating score
 function updateScore() {
-	ctx.fillStlye = "white";
+	ctx.fillStyle = "white";
 	ctx.font = "16px Arial, sans-serif";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
@@ -189,8 +189,11 @@ function initGame() {
 	paddle = new Paddle();
 	ball = new Ball();
 
-	for (var i = 0; i < 5; i++) {
-		boxes.push(new Box(i * 100, i * 25));
+	for (var i = 0; i < 21; i++) {
+		boxes.push(new Box(100+(i * 40), 60));
+	};
+	for (var i = 0; i < 21; i++) {
+		boxes.push(new Box(100+(i * 40), 85));
 	};
 
 	requestAnimFrame(loop);
