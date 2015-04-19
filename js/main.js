@@ -29,12 +29,11 @@ var canvas = document.getElementById("canvas"),
 	paddle, // Paddle object
 	boxes = [], // Array for boxes
 	mouse = {}, // Mouse object to store it's current position
-	points = 199, // Variable to store points
-	fps = 60; // Max FPS (frames per second)
-
-// Add mousemove and mousedown events to the canvas
-document.addEventListener("mousemove", trackMouse, true);
-document.addEventListener("mousedown", mouseClick, true);
+	points, // Variable to store points
+	initialPoints = 199, // Points when the game starts
+	fps = 60, // Max FPS (frames per second)
+    gameLoop, // Variable to store the game loop
+    buttons = []; // Array to store buttons
 
 // Track the position of mouse cursor
 function trackMouse(e) {
@@ -45,13 +44,42 @@ function trackMouse(e) {
 // On button click (Restart and start)
 function mouseClick(e) {
 	// Variables for storing mouse position on click
-	var mx = e.pageX,
-		my = e.pageY;
+	var mx = e.pageX - canvas.offsetLeft,
+		my = e.pageY - canvas.offsetTop;
+
+	if (buttons.length) {
+		for (var i = 0; i < buttons.length; i++) {
+			var button = buttons[i];
+
+			if (mx > button.x - button.width / 2 && mx < button.x + button.width / 2 ) {
+				if (my > button.y - button.height / 2 && my < button.y + button.height / 2 ) {
+					button.clickFunction();
+				}
+			}
+		};
+	}
 }
 
-// Set the canvas's height and width to full screen
-canvas.width = W;
-canvas.height = H;
+function Button(label, x, y, width, height, clickFunction) {
+	this.label = label;
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
+
+	this.clickFunction = clickFunction;
+
+	this.draw = function() {
+		ctx.fillStyle = "white";
+		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+
+		ctx.font = "16px Arial, sans-serif";
+		ctx.textAlign = "center";
+		ctx.textBaseline = "middle";
+		ctx.fillStyle = "black";
+		ctx.fillText(this.label, this.x, this.y);
+	}
+}
 
 // Function to paint canvas
 function clearCanvas() {
@@ -68,7 +96,7 @@ function Paddle() {
 
 	this.update = function() {
 		if (mouse.x) {
-			this.x = mouse.x;
+			this.x = Math.max(this.width / 2, Math.min(mouse.x, W - this.width / 2));
 		}
 	},
 
@@ -81,7 +109,6 @@ function Paddle() {
 // Make a collidable box
 function Box(x, y) {
 
-	//isColliding = false;
 	this.width = 20;
 	this.height = 10;
 
@@ -131,7 +158,7 @@ function Ball() {
 		}
 
 		if (this.y > H) {
-
+            gameOver();
 		}
 
 		if (this.y >= paddle.y - paddle.height / 2 && this.y <= paddle.y + paddle.height / 2) {
@@ -144,11 +171,11 @@ function Ball() {
 			}
 		}
 
-		for (var i = 0; i < boxes.length; i++) {
+		for (var i = boxes.length - 1; i > 0; i--) {
 			box = boxes[i];
 
-			if (this.y >= box.y - box.height / 2 && this.y <= box.y + box.height / 2) {
-				if (this.x >= box.x - box.width / 2 && this.x <= box.x + box.width / 2) {
+			if (this.y >= box.y - box.height / 2 - this.r && this.y <= box.y + box.height / 2 + this.r) {
+				if (this.x >= box.x - box.width / 2 - this.r && this.x <= box.x + box.width / 2 + this.r) {
 					this.vy = -this.vy;
 					points = points-1;
                     boxes.splice(i, 1);
@@ -162,6 +189,7 @@ function Ball() {
 // Function to update positions, score and everything.
 // Basically, the main game logic is defined here
 function loop() {
+	gameLoop = window.requestAnimFrame(loop);
 
 	clearCanvas();
 
@@ -180,9 +208,6 @@ function loop() {
 	for (var i = 0; i < boxes.length; i++) {
 		boxes[i].draw();
 	};
-
-	requestAnimFrame(loop);
-
 }
 
 // Function for updating score
@@ -194,7 +219,11 @@ function updateScore() {
 	ctx.fillText("Kansanedustajia: " + points, 20, 20 );
 }
 
-function initGame() {
+function startGame() {
+
+	buttons = [];
+
+	points = initialPoints;
 
 	paddle = new Paddle();
 	ball = new Ball();
@@ -215,8 +244,44 @@ function initGame() {
 		boxes.push(new Box(150+(i * 25), 120));
 	};
 
-	requestAnimFrame(loop);
+	loop();
 
 }
 
-initGame();
+function gameOver() {
+    window.cancelRequestAnimFrame(gameLoop);
+
+	buttons.push(new Button('Uusi peli', W / 2, H / 2, W / 3, 60, startGame));
+
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
+		button.draw();
+	};
+}
+
+function startScreen() {
+	clearCanvas();
+
+	buttons.push(new Button('Aloita peli', W / 2, H / 2, W / 3, 60, startGame));
+
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
+		button.draw();
+	};
+}
+
+function init() {
+
+	// Set the canvas's height and width to full screen
+	canvas.width = W;
+	canvas.height = H;
+
+	// Add mousemove and mousedown events to the canvas
+	document.addEventListener("mousemove", trackMouse, true);
+	document.addEventListener("mousedown", mouseClick, true);
+
+	startScreen();
+
+}
+
+init();
