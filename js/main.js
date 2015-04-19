@@ -86,10 +86,40 @@ function Box(x, y) {
 	this.height = 10;
 
 	this.x = x;
-	this.y = y,
+	this.y = y;
+	var color = '#ff0000'
+
+	colorRandom = Math.random();
+	if (colorRandom < 0.040){
+		color = '#5a89ac';
+	}
+	else if (colorRandom < 0.091){
+		color = '#f5da46';
+	}
+	else if (colorRandom < 0.179){
+		color = '#a61217';
+	}
+	else if (colorRandom < 0.236){
+		color = '#79d371';
+	}
+	else if (colorRandom < 0.392){
+		color = '#d92a31';
+	}
+	else if (colorRandom < 0.564){
+		color = '#00acee';
+	}
+	else if (colorRandom < 0.738){
+		color = '#006289';
+	}
+	else if (colorRandom < 0.983){
+		color = '#339945';
+	}
+	else{
+		color = '#808080';
+	}
 
 	this.draw = function() {
-		ctx.fillStyle = "red";
+		ctx.fillStyle = color;
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
 	}
 
