@@ -199,21 +199,58 @@ function initGame() {
 	paddle = new Paddle();
 	ball = new Ball();
 
-	for (var i = 0; i < 21; i++) {
+	for (var i = 0; i < 16; i++) {
 		boxes.push(new Box(250+(i * 25), 60));
 	};
-	for (var i = 0; i < 23; i++) {
+	for (var i = 0; i < 18; i++) {
 		boxes.push(new Box(225+(i * 25), 75));
 	};
-		for (var i = 0; i < 25; i++) {
+	for (var i = 0; i < 20; i++) {
 		boxes.push(new Box(200+(i * 25), 90));
 	};
-		for (var i = 0; i < 27; i++) {
+	for (var i = 0; i < 22; i++) {
 		boxes.push(new Box(175+(i * 25), 105));
 	};
-		for (var i = 0; i < 29; i++) {
+	for (var i = 0; i < 24; i++) {
 		boxes.push(new Box(150+(i * 25), 120));
 	};
+	for (var i = 0; i < 22; i++) {
+		boxes.push(new Box(175+(i * 25), 135));
+	};
+	for (var i = 0; i < 20; i++) {
+		boxes.push(new Box(200+(i * 25), 150));
+	};
+	for (var i = 0; i < 8; i++) {
+		boxes.push(new Box(225+(i * 25), 165));
+	};
+	for (var i = 0; i < 8; i++) {
+		boxes.push(new Box(475+(i * 25), 165));
+	};
+	for (var i = 0; i < 7; i++) {
+		boxes.push(new Box(250+(i * 25), 180));
+	};
+	for (var i = 0; i < 7; i++) {
+		boxes.push(new Box(475+(i * 25), 180));
+	};
+	for (var i = 0; i < 5; i++) {
+		boxes.push(new Box(275+(i * 25), 195));
+	};
+	for (var i = 0; i < 5; i++) {
+		boxes.push(new Box(500+(i * 25), 195));
+	};
+	for (var i = 0; i < 3; i++) {
+		boxes.push(new Box(300+(i * 25), 210));
+	};
+	for (var i = 0; i < 3; i++) {
+		boxes.push(new Box(525+(i * 25), 210));
+	};
+	for (var i = 0; i < 1; i++) {
+		boxes.push(new Box(325+(i * 25), 225));
+	};
+	for (var i = 0; i < 1; i++) {
+		boxes.push(new Box(550+(i * 25), 225));
+	};
+
 
 	requestAnimFrame(loop);
 
