@@ -29,7 +29,7 @@ var canvas = document.getElementById("canvas"),
 	paddle, // Paddle object
 	boxes = [], // Array for boxes
 	mouse = {}, // Mouse object to store it's current position
-	points = 0, // Variable to store points
+	points = 199, // Variable to store points
 	fps = 60; // Max FPS (frames per second)
 
 // Add mousemove and mousedown events to the canvas
@@ -81,6 +81,7 @@ function Paddle() {
 // Make a collidable box
 function Box(x, y) {
 
+	//isColliding = false;
 	this.width = 30;
 	this.height = 15;
 
@@ -88,8 +89,14 @@ function Box(x, y) {
 	this.y = y,
 
 	this.draw = function() {
+		if (this.isColliding != true){
 		ctx.fillStyle = "red";
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
+		}
+		else {
+			this.x = -10;
+			this.y = -10;
+		};
 	}
 
 }
@@ -143,7 +150,10 @@ function Ball() {
 			if (this.y >= box.y - box.height / 2 && this.y <= box.y + box.height / 2) {
 				if (this.x >= box.x - box.width / 2 && this.x <= box.x + box.width / 2) {
 					this.vy = -this.vy;
+					box.isColliding = true;
+					points = points-1;
 				}
+
 			}
 		}
 	}
@@ -181,7 +191,7 @@ function updateScore() {
 	ctx.font = "16px Arial, sans-serif";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Score: " + points, 20, 20 );
+	ctx.fillText("Kansanedustajia: " + points, 20, 20 );
 }
 
 function initGame() {
