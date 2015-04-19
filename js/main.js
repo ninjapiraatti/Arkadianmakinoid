@@ -35,6 +35,7 @@ var canvas = document.getElementById("canvas"),
     gameLoop, // Variable to store the game loop
     buttons = []; // Array to store buttons
 	points = 199, // Variable to store points
+	removedParties = 0, // Variable to track removed parties
 	puolueet = {
 	Pikkupuolueet : 0,
 	KD : 0,
@@ -246,7 +247,10 @@ function Ball() {
 					points = points-1;
                     boxes.splice(i, 1);
                     //window.alert(box.party);
-                    puolueet[box.party]--;                
+                    puolueet[box.party]--;
+                    if (puolueet[box.party] == 0){
+                    	removedParties++;
+                    }           
 				}
 
 			}
@@ -294,6 +298,15 @@ function updateScore() {
 	ctx.fillText("RKP: " + puolueet['RKP'], 20, 140 );
 	ctx.fillText("KD: " + puolueet['KD'], 20, 160 );
 	ctx.fillText("Pikkupuolueet: " + puolueet['Pikkupuolueet'], 20, 180 );
+	if (points < 102){
+		if (removedParties > 2){
+			gameOverVictory();
+		}
+		else{
+			gameOver();
+		}
+	}
+	
 }
 
 function startGame() {
@@ -380,7 +393,7 @@ function gameOver() {
 function gameOverVictory() {
     window.cancelRequestAnimFrame(gameLoop);
 
-	buttons.push(new Button('Uusi peli', W / 2, H / 2, W / 3, 60, startGame));
+	buttons.push(new Button('Hienosti! Hallitus muodostettu.', W / 2, H / 2, W / 3, 60, startGame));
 
 	for (var i = 0; i < buttons.length; i++) {
 		var button = buttons[i];
