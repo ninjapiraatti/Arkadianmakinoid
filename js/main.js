@@ -168,11 +168,11 @@ function Box(x, y) {
 	else{
 		color = '#808080';
 	}
+	this.party = party;
 
 	this.draw = function() {
 		ctx.fillStyle = color;
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
-		this.party = party;
 	}
 
 }
@@ -234,6 +234,7 @@ function Ball() {
 					this.vy = -this.vy;
 					points = points-1;
                     boxes.splice(i, 1);
+                    //window.alert(box.party);
 				}
 
 			}
