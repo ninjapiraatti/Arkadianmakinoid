@@ -23,7 +23,7 @@ window.cancelRequestAnimFrame = ( function() {
 // Initialize canvas and required variables
 var canvas = document.getElementById("canvas"),
 	ctx = canvas.getContext("2d"), // Create canvas context
-	W = 1000, // Window's width
+	W = 900, // Window's width
 	H = window.innerHeight / 1.25, // Window's height
 	ball, // Ball object
 	paddle, // Paddle object
@@ -250,6 +250,10 @@ function initGame() {
 	for (var i = 0; i < 1; i++) {
 		boxes.push(new Box(550+(i * 25), 225));
 	};
+	for (var i = 0; i < 9; i++) {
+		boxes.push(new Box(325+(i * 25), 45));
+	};
+
 
 
 	requestAnimFrame(loop);
