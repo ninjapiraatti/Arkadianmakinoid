@@ -29,13 +29,11 @@ var canvas = document.getElementById("canvas"),
 	paddle, // Paddle object
 	boxes = [], // Array for boxes
 	mouse = {}, // Mouse object to store it's current position
-<<<<<<< Updated upstream
 	points, // Variable to store points
 	initialPoints = 199, // Points when the game starts
 	fps = 60, // Max FPS (frames per second)
     gameLoop, // Variable to store the game loop
     buttons = []; // Array to store buttons
-=======
 	points = 199, // Variable to store points
 	Pikkupuolueet = 0,
 	KD = 0,
@@ -51,7 +49,6 @@ var canvas = document.getElementById("canvas"),
 // Add mousemove and mousedown events to the canvas
 document.addEventListener("mousemove", trackMouse, true);
 document.addEventListener("mousedown", mouseClick, true);
->>>>>>> Stashed changes
 
 // Track the position of mouse cursor
 function trackMouse(e) {
