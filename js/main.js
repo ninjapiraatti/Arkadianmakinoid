@@ -89,14 +89,8 @@ function Box(x, y) {
 	this.y = y,
 
 	this.draw = function() {
-		if (this.isColliding != true){
 		ctx.fillStyle = "red";
 		ctx.fillRect(this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
-		}
-		else {
-			this.x = -10;
-			this.y = -10;
-		};
 	}
 
 }
@@ -150,8 +144,8 @@ function Ball() {
 			if (this.y >= box.y - box.height / 2 && this.y <= box.y + box.height / 2) {
 				if (this.x >= box.x - box.width / 2 && this.x <= box.x + box.width / 2) {
 					this.vy = -this.vy;
-					box.isColliding = true;
 					points = points-1;
+                    boxes.splice(i, 1);
 				}
 
 			}
