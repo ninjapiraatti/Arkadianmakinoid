@@ -35,15 +35,17 @@ var canvas = document.getElementById("canvas"),
     gameLoop, // Variable to store the game loop
     buttons = []; // Array to store buttons
 	points = 199, // Variable to store points
-	Pikkupuolueet = 0,
-	KD = 0,
-	RKP = 0,
-	Vihr = 0,
-	Vas = 0,
-	SDP = 0,
-	PS = 0,
-	Kok = 0,
-	Kesk = 0,
+	puolueet = {
+	Pikkupuolueet : 0,
+	KD : 0,
+	RKP : 0,
+	Vihr : 0,
+	Vas : 0,
+	SDP : 0,
+	PS : 0,
+	Kok : 0,
+	Kesk : 0
+	},
 	fps = 60; // Max FPS (frames per second)
 
 // Add mousemove and mousedown events to the canvas
@@ -130,43 +132,52 @@ function Box(x, y) {
 	this.x = x;
 	this.y = y;
 	var color = '#ff0000';
-	var party = 'pikkupuolueet'
+	var party = 'Pikkupuolueet'
 
 	colorRandom = Math.random();
 	if (colorRandom < 0.040){
 		color = '#5a89ac';
+		puolueet['KD']++;
 		party = 'KD';
 	}
 	else if (colorRandom < 0.091){
 		color = '#f5da46';
+		puolueet['RKP']++;
 		party = 'RKP';
 	}
 	else if (colorRandom < 0.179){
 		color = '#a61217';
+		puolueet['Vas']++;
 		party = 'Vas';
 	}
 	else if (colorRandom < 0.236){
 		color = '#79d371';
+		puolueet['Vihr']++;
 		party = 'Vihr';
 	}
 	else if (colorRandom < 0.392){
 		color = '#d92a31';
+		puolueet['SDP']++;
 		party = 'SDP';
 	}
 	else if (colorRandom < 0.564){
 		color = '#00acee';
+		puolueet['PS']++;
 		party = 'PS';
 	}
 	else if (colorRandom < 0.738){
 		color = '#006289';
+		puolueet['Kok']++;
 		party = 'Kok';
 	}
 	else if (colorRandom < 0.983){
 		color = '#339945';
+		puolueet['Kesk']++;
 		party = 'Kesk';
 	}
 	else{
 		color = '#808080';
+		puolueet['Pikkupuolueet']++;
 	}
 	this.party = party;
 
@@ -235,6 +246,7 @@ function Ball() {
 					points = points-1;
                     boxes.splice(i, 1);
                     //window.alert(box.party);
+                    puolueet[box.party]--;                
 				}
 
 			}
@@ -272,7 +284,16 @@ function updateScore() {
 	ctx.font = "16px Arial, sans-serif";
 	ctx.textAlign = "left";
 	ctx.textBaseline = "top";
-	ctx.fillText("Kansanedustajia: " + points, 20, 20 );
+	//ctx.fillText("Kansanedustajia: " + points, 20, 20 );
+	ctx.fillText("Kesk: " + puolueet['Kesk'], 20, 20 );
+	ctx.fillText("Kok: " + puolueet['Kok'], 20, 40 );
+	ctx.fillText("PS: " + puolueet['PS'], 20, 60 );
+	ctx.fillText("SDP: " + puolueet['SDP'], 20, 80 );
+	ctx.fillText("Vihr: " + puolueet['Vihr'], 20, 100 );
+	ctx.fillText("Vas: " + puolueet['Vas'], 20, 120 );
+	ctx.fillText("RKP: " + puolueet['RKP'], 20, 140 );
+	ctx.fillText("KD: " + puolueet['KD'], 20, 160 );
+	ctx.fillText("Pikkupuolueet: " + puolueet['Pikkupuolueet'], 20, 180 );
 }
 
 function startGame() {
@@ -346,6 +367,17 @@ function startGame() {
 }
 
 function gameOver() {
+    window.cancelRequestAnimFrame(gameLoop);
+
+	buttons.push(new Button('Ei hallitusta - Uusi peli', W / 2, H / 2, W / 3, 60, startGame));
+
+	for (var i = 0; i < buttons.length; i++) {
+		var button = buttons[i];
+		button.draw();
+	};
+}
+
+function gameOverVictory() {
     window.cancelRequestAnimFrame(gameLoop);
 
 	buttons.push(new Button('Uusi peli', W / 2, H / 2, W / 3, 60, startGame));
