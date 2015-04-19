@@ -318,6 +318,17 @@ function startGame() {
 	paddle = new Paddle();
 	ball = new Ball();
 
+	puolueet = { Pikkupuolueet : 0,
+	KD : 0,
+	RKP : 0,
+	Vihr : 0,
+	Vas : 0,
+	SDP : 0,
+	PS : 0,
+	Kok : 0,
+	Kesk : 0
+	};
+
 	for (var i = 0; i < 16; i++) {
 		boxes.push(new Box(250+(i * 25), 60));
 	};
@@ -417,6 +428,7 @@ function init() {
 	// Set the canvas's height and width to full screen
 	canvas.width = W;
 	canvas.height = H;
+	
 
 	// Add mousemove and mousedown events to the canvas
 	document.addEventListener("mousemove", trackMouse, true);
