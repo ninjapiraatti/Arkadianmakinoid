@@ -52,8 +52,8 @@ document.addEventListener("mousedown", mouseClick, true);
 
 // Track the position of mouse cursor
 function trackMouse(e) {
-	mouse.x = e.pageX;
-	mouse.y = e.pageY;
+	mouse.x = e.pageX - canvas.offsetLeft;
+	mouse.y = e.pageY - canvas.offsetTop;
 }
 
 // On button click (Restart and start)
