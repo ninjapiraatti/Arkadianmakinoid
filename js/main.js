@@ -82,8 +82,8 @@ function Paddle() {
 function Box(x, y) {
 
 	//isColliding = false;
-	this.width = 30;
-	this.height = 15;
+	this.width = 20;
+	this.height = 10;
 
 	this.x = x;
 	this.y = y,
@@ -194,10 +194,19 @@ function initGame() {
 	ball = new Ball();
 
 	for (var i = 0; i < 21; i++) {
-		boxes.push(new Box(100+(i * 40), 60));
+		boxes.push(new Box(250+(i * 25), 60));
 	};
-	for (var i = 0; i < 21; i++) {
-		boxes.push(new Box(100+(i * 40), 85));
+	for (var i = 0; i < 23; i++) {
+		boxes.push(new Box(225+(i * 25), 75));
+	};
+		for (var i = 0; i < 25; i++) {
+		boxes.push(new Box(200+(i * 25), 90));
+	};
+		for (var i = 0; i < 27; i++) {
+		boxes.push(new Box(175+(i * 25), 105));
+	};
+		for (var i = 0; i < 29; i++) {
+		boxes.push(new Box(150+(i * 25), 120));
 	};
 
 	requestAnimFrame(loop);
