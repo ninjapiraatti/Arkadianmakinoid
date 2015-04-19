@@ -97,12 +97,14 @@ function Box(x, y) {
 
 // Ball object
 function Ball() {
-	this.x = 50;
-	this.y = 50;
+	this.x = W / 2;
+	this.y = H / 2;
 	this.r = 5;
 	this.c = "white";
-	this.vx = 4;
-	this.vy = 8;
+    this.speed = 5;
+    this.angle = (Math.random() * 90 + 45) * (Math.PI / 180);
+    this.vx = Math.cos(this.angle) * this.speed;
+    this.vy = Math.sin(this.angle) * this.speed;
 
 	// Function for updating the position of the ball
 	this.update = function() {
@@ -134,7 +136,11 @@ function Ball() {
 
 		if (this.y >= paddle.y - paddle.height / 2 && this.y <= paddle.y + paddle.height / 2) {
 			if (this.x >= paddle.x - paddle.width / 2 && this.x <= paddle.x + paddle.width / 2) {
-				this.vy = -this.vy;
+				var dx = this.x - paddle.x;
+                var dy = this.y - (paddle.y + 25);
+                this.angle = Math.atan2(dy, dx);
+                this.vx = Math.cos(this.angle) * this.speed;
+                this.vy = Math.sin(this.angle) * this.speed;
 			}
 		}
 
