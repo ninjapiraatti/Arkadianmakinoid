@@ -24,7 +24,7 @@ window.cancelRequestAnimFrame = ( function() {
 var canvas = document.getElementById("canvas"),
 	ctx = canvas.getContext("2d"), // Create canvas context
 	W = 900, // Window's width
-	H = 600, // Window's height
+	H = window.innerHeight / 1.5, // Window's height
 	ball, // Ball object
 	paddle, // Paddle object
 	boxes = [], // Array for boxes
