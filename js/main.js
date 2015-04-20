@@ -137,7 +137,7 @@ function Box(x, y) {
 
 	colorRandom = Math.random();
 	if (colorRandom < 0.040){
-		color = '#5a89ac';
+		color = '#8a2275';
 		puolueet['KD']++;
 		party = 'KD';
 	}
@@ -301,9 +301,11 @@ function updateScore() {
 	if (points < 102){
 		if (removedParties > 2){
 			gameOverVictory();
+			points = 199;
 		}
 		else{
 			gameOver();
+			points = 199;
 		}
 	}
 	
@@ -312,6 +314,7 @@ function updateScore() {
 function startGame() {
 
 	buttons = [];
+	boxes = [];
 
 	points = initialPoints;
 
